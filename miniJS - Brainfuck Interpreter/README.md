@@ -3,16 +3,16 @@ This contains a Brainfuck interpreter written in "miniJS", thus proving that min
 
 **Brainfuck** (http://en.wikipedia.org/wiki/Brainfuck) is a Turing complete, esoteric, programming language consisting of eight commands.
 
-**miniJs** is an ultra-minimalistic subset of JavaScript. Specifically it contains strings, ints, basic arithmetic and equality operators, if and while statements and input reading.
+**miniJs** is an ultra-minimalistic subset of JavaScript. Specifically it contains strings, ints, basic arithmetic and equality operators, if and while statements and character input/output.
 
 **sort.not** To give you an idea of the puzzle-like nature of using miniJS, a basic sorting algorithm is implemented here.
 
 **interpreter.not** The interpreter, takes the Brainfuck code and arguments and returns the appropriate result  
 
-*runInterpreter.sh* is a wrapper script for the interpreter which just takes the Brainfuck program as a parameter.
+**runInterpreter.sh** is a wrapper script for the interpreter which just takes the Brainfuck program as a parameter.
 The script gets rid of comments and whitespace, separates the code from the arguments( arguments should be separated by '!' ), runs the interpreter and then converts the interpreter output from ascii decimal to characters.
 
-*tests*
+**tests**
 A bunch of BF programs used as tests. These were found on the web and are not written by me.
 Arguments to the program can be added at the end of the code and should be separated by '!' (eg: The file ',.,.!65!66' would print out AB)
 
