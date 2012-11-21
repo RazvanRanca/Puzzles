@@ -7,4 +7,6 @@ Various small programs best described as puzzles
 
 **miniJS - Brainfuck** - Proving that a minimalistic language (miniJS) is Turing complete by implementing a Brainfuck interpreter (http://en.wikipedia.org/wiki/Brainfuck)
 
-**ProjectEuler** - Solutions to ~80 ProjectEuler (projecteuler.net) problems. Done to get a better grip on Haskell.
+**ProjectEuler** - Solutions to ~80 ProjectEuler (projecteuler.net) problems, written in Haskell.
+
+**PythonChallenge** - Solutions to the first 7 PythonChallenge (http://www.pythonchallenge.com/) problems.
