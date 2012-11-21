@@ -5,7 +5,7 @@ This contains a Brainfuck interpreter written in "miniJS", thus proving that min
 
 **miniJs** is an ultra-minimalistic subset of JavaScript. Specifically it contains strings, ints, basic arithmetic and equality operators, if and while statements and character input/output.
 
-**sort.not** To give you an idea of the puzzle-like nature of using miniJS, a basic sorting algorithm is implemented here.
+**sort.not** To give you an idea of the puzzle-like nature of using miniJS, a basic sorting algorithm is implemented here. One of the big issues is that since we have no arrays or pointers we have to simulate arrays using strings. Of course we don't have any way of comparing strings or directly converting string to integers either, so here it gets interesting.
 
 **interpreter.not** The interpreter, takes the Brainfuck code and arguments and returns the appropriate result  
 

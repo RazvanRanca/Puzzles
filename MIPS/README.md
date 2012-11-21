@@ -1,8 +1,9 @@
 Two sample programs implemented on the MIPS reduced instruction set
----
+===
 See: http://en.wikipedia.org/wiki/MIPS_architecture
 
-**reverse.s**: reverses a string of length up to 40. 
+reverse.s: reverses a string of length up to 40. 
+---
 
 The algorithm is equivalent to roughly the following pseudo-code:
 ```
@@ -30,7 +31,8 @@ only once
 syscall function calls
 
 
-**brackets.s:** Reads an input string, checks that it is properly bracketed and returns a suitable output message. Accepts ( ) [ and ] as valid brackets
+brackets.s: Reads an input string, checks that it is properly bracketed and returns a suitable output message. Accepts ( ) [ and ] as valid brackets
+---
 
 The algorithm is equivalent to roughly the following pseudo-code:
 ```

@@ -1,5 +1,6 @@
-Two sample programs implemented on the MIPS reduced instruction set (http://en.wikipedia.org/wiki/MIPS_architecture)
+Two sample programs implemented on the MIPS reduced instruction set
 ---
+See: http://en.wikipedia.org/wiki/MIPS_architecture
 
 **reverse.s**: reverses a string of length up to 40. 
 
@@ -66,6 +67,7 @@ if(!st.isEmpty()) {
 }
 if(success)
   printf("At : %d all brackets matched\n", pos);
+```
 
 **Register usage in the main function:**
 * $s0 -holds the newline character, used to determine when we have finished reading the input
