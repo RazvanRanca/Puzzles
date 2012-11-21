@@ -1,0 +1,292 @@
+<< brainfuck interpreter
+takes BF prog as input >>
+
+var data, i, j, comm, cont, cur, icur, match, jf, jb, c, nr, nrCont, snr, digit, div, temp, cbyte, dpdiv, head, tail, iff, ib, nest, inest, ttt, mm in
+  jf := "";
+  cbyte := 0;
+  dpdiv := 1;
+  jb := "";
+  inest := "";
+  i := 0;
+  data := 1;
+  while( i < 9001) { <<should be 90001 to fit BF specifications, it makes it slow though>>
+    i := i + 1;
+    data := data * 10;
+    dpdiv := dpdiv * 10
+  };
+  dpdiv := dpdiv / 1000;
+  comm := input str;
+  
+  cont := true;
+  cur := "";
+  i := 0;
+  nest := 0;
+  ttt := 0;
+  mm := 0;
+  ib := 0;
+
+  while ( cont ) {
+    i := i+1;
+    if( comm < cur + "+") {cont := false; match := false}
+    else if( comm < cur + ",") { cur := cur + "+" }
+    else if( comm < cur + "-") { cur := cur + "," }
+    else if( comm < cur + ".") { cur := cur + "-" }
+    else if( comm < cur + "<") { cur := cur + "." }
+    else if( comm < cur + ">") { cur := cur + "<" }
+    else if( comm < cur + "[") { cur := cur + ">" }
+    else if( comm < cur + "]") { 
+      ttt := ttt + 1;
+      cur := cur + "[";
+      icur := cur;
+      j := i;
+      nest := nest + 1;
+      c := 1;
+      match := true;
+      while ( match ) {
+        j := j+1;
+        if( comm < icur + "+") {cont := false; match := false; output "--- WTF, WTF, WTF 1---"}
+        else if( comm < icur + ",") { icur := icur + "+" }
+        else if( comm < icur + "-") { icur := icur + "," }
+        else if( comm < icur + ".") { icur := icur + "-" }
+        else if( comm < icur + "<") { icur := icur + "." }
+        else if( comm < icur + ">") { icur := icur + "<" }
+        else if( comm < icur + "[") { icur := icur + ">" }
+        else if( comm < icur + "]") { icur := icur + "["; c:= c + 1}
+        else { icur := icur + "]"; c:= c - 1;
+          if ( c = 0 ) { 
+            match := false;
+            nr := 0;
+            nrCont := true;
+            snr := "";
+            div  := 10;
+            while ( nrCont ) { 
+              temp := j - ((j / div) * div ) ;
+              div := div / 10;
+              if( temp < nr ) {nrCont := false}
+              else if( temp < nr + (div * 1) ) { snr := "0" + snr }
+              else if( temp < nr + (div * 2) ) { nr := nr + (div * 1); snr := "1" + snr }
+              else if( temp < nr + (div * 3) ) { nr := nr + (div * 2); snr := "2" + snr }
+              else if( temp < nr + (div * 4) ) { nr := nr + (div * 3); snr := "3" + snr }
+              else if( temp < nr + (div * 5) ) { nr := nr + (div * 4); snr := "4" + snr }
+              else if( temp < nr + (div * 6) ) { nr := nr + (div * 5); snr := "5" + snr }
+              else if( temp < nr + (div * 7) ) { nr := nr + (div * 6); snr := "6" + snr }
+              else if( temp < nr + (div * 8) ) { nr := nr + (div * 7); snr := "7" + snr }
+              else if( temp < nr + (div * 9) ) { nr := nr + (div * 8); snr := "8" + snr }
+              else { nr := nr + (div * 9); snr := "9" + snr };
+              div := div * 100;
+              if( nr = j ) nrCont := false
+            };
+            jf := jf + snr + " "; 
+
+            nr := 0;
+            nrCont := true;
+            snr := "";
+            div  := 10;
+            while ( nrCont ) { 
+              temp := i - ((i / div) * div ) ;
+              div := div / 10;
+              if( temp < nr ) {nrCont := false}
+              else if( temp < nr + (div * 1) ) { snr := "0" + snr }
+              else if( temp < nr + (div * 2) ) { nr := nr + (div * 1); snr := "1" + snr }
+              else if( temp < nr + (div * 3) ) { nr := nr + (div * 2); snr := "2" + snr }
+              else if( temp < nr + (div * 4) ) { nr := nr + (div * 3); snr := "3" + snr }
+              else if( temp < nr + (div * 5) ) { nr := nr + (div * 4); snr := "4" + snr }
+              else if( temp < nr + (div * 6) ) { nr := nr + (div * 5); snr := "5" + snr }
+              else if( temp < nr + (div * 7) ) { nr := nr + (div * 6); snr := "6" + snr }
+              else if( temp < nr + (div * 8) ) { nr := nr + (div * 7); snr := "7" + snr }
+              else if( temp < nr + (div * 9) ) { nr := nr + (div * 8); snr := "8" + snr }
+              else { nr := nr + (div * 9); snr := "9" + snr };
+              div := div * 100;
+              if( nr = i ) nrCont := false
+            };
+            jb := jb + snr + " "
+
+          }
+        }
+      }     
+    }
+    else { 
+      cur := cur + "]";
+      c := 0;
+      snr := "";
+      nr := -1;
+      while ( nr != i) {
+        match := true;
+        nr  := 0;
+        while ( match ) {
+          if( jf < snr + "0") { match := false }
+          else if( jf < snr + "1") { nr := (nr * 10); snr := snr + "0" }
+          else if( jf < snr + "2") { nr := (nr * 10) + 1; snr := snr + "1" }
+          else if( jf < snr + "3") { nr := (nr * 10) + 2; snr := snr + "2" }
+          else if( jf < snr + "4") { nr := (nr * 10) + 3; snr := snr + "3" }
+          else if( jf < snr + "5") { nr := (nr * 10) + 4; snr := snr + "4" }
+          else if( jf < snr + "6") { nr := (nr * 10) + 5; snr := snr + "5" }
+          else if( jf < snr + "7") { nr := (nr * 10) + 6; snr := snr + "6" }
+          else if( jf < snr + "8") { nr := (nr * 10) + 7; snr := snr + "7" }
+          else if( jf < snr + "9") { nr := (nr * 10) + 8; snr := snr + "8" }
+          else { nr := (nr * 10) + 9; snr := snr + "9" }
+        };
+        snr := snr + " ";
+        c := c + 1
+      };
+      nr := 0;
+      nrCont := true;
+      snr := "";
+      div  := 10;
+      while ( nrCont ) { 
+        temp := c - ((c / div) * div ) ;
+        div := div / 10;
+        if( temp < nr ) {nrCont := false}
+        else if( temp < nr + (div * 1) ) { snr := "0" + snr }
+        else if( temp < nr + (div * 2) ) { nr := nr + (div * 1); snr := "1" + snr }
+        else if( temp < nr + (div * 3) ) { nr := nr + (div * 2); snr := "2" + snr }
+        else if( temp < nr + (div * 4) ) { nr := nr + (div * 3); snr := "3" + snr }
+        else if( temp < nr + (div * 5) ) { nr := nr + (div * 4); snr := "4" + snr }
+        else if( temp < nr + (div * 6) ) { nr := nr + (div * 5); snr := "5" + snr }
+        else if( temp < nr + (div * 7) ) { nr := nr + (div * 6); snr := "6" + snr }
+        else if( temp < nr + (div * 8) ) { nr := nr + (div * 7); snr := "7" + snr }
+        else if( temp < nr + (div * 9) ) { nr := nr + (div * 8); snr := "8" + snr }
+        else { nr := nr + (div * 9); snr := "9" + snr };
+        div := div * 100;
+        if( nr = c ) nrCont := false
+      };
+      inest := inest + snr + " "
+
+    }
+  };
+ << output cur;
+  output jf;
+  output jb; 
+  output inest; >>
+
+  cont := true;
+  cur := "";
+  i := 0;
+  iff := 0;
+  ib := 0;
+
+  while ( cont ) {
+  <<  output cbyte;
+    output data; 
+    output cur; >>
+
+    i := i+1;
+    if( comm < cur + "+") {cont := false; match := false}
+    else if( comm < cur + ",") { cur := cur + "+"; cbyte := cbyte + 1; if( cbyte = 256) cbyte := 0 }
+    else if( comm < cur + "-") { cur := cur + ","; cbyte := input num }
+    else if( comm < cur + ".") { cur := cur + "-"; cbyte := cbyte - 1; if( cbyte = -1) cbyte := 255 }
+    else if( comm < cur + "<") { cur := cur + "."; output cbyte }
+    else if( comm < cur + ">") { cur := cur + "<"; head := data / dpdiv; tail := data - (head * dpdiv); head := ((head / 1000) * 1000) + cbyte; cbyte := (head - ((head / 1000000) * 1000000)) / 1000; data := (head * dpdiv) + tail; dpdiv := dpdiv * 1000  }
+    else if( comm < cur + "[") { cur := cur + ">"; head := data / dpdiv; tail := data - (head * dpdiv); head := ((head / 1000) * 1000) + cbyte; cbyte := tail / (dpdiv / 1000); data := (head * dpdiv) + tail; dpdiv := dpdiv / 1000 }
+    else if( comm < cur + "]") { 
+      cur := cur + "[";
+      iff := iff + 1;
+      if( cbyte = 0 ) {
+        c := 0;
+        snr := "";
+        while ( c < iff ) {
+          match := true;
+          nr  := 0;
+          while ( match ) {
+            if( jf < snr + "0") { match := false }
+            else if( jf < snr + "1") { nr := (nr * 10); snr := snr + "0" }
+            else if( jf < snr + "2") { nr := (nr * 10) + 1; snr := snr + "1" }
+            else if( jf < snr + "3") { nr := (nr * 10) + 2; snr := snr + "2" }
+            else if( jf < snr + "4") { nr := (nr * 10) + 3; snr := snr + "3" }
+            else if( jf < snr + "5") { nr := (nr * 10) + 4; snr := snr + "4" }
+            else if( jf < snr + "6") { nr := (nr * 10) + 5; snr := snr + "5" }
+            else if( jf < snr + "7") { nr := (nr * 10) + 6; snr := snr + "6" }
+            else if( jf < snr + "8") { nr := (nr * 10) + 7; snr := snr + "7" }
+            else if( jf < snr + "9") { nr := (nr * 10) + 8; snr := snr + "8" }
+            else { nr := (nr * 10) + 9; snr := snr + "9" }
+          };
+          snr := snr + " ";
+          c := c + 1
+        };
+        while ( i < nr ) {
+          i := i+1;
+          if( comm < cur + "+") {cont := false; match := false}
+          else if( comm < cur + ",") { cur := cur + "+" }
+          else if( comm < cur + "-") { cur := cur + "," }
+          else if( comm < cur + ".") { cur := cur + "-" }
+          else if( comm < cur + "<") { cur := cur + "." }
+          else if( comm < cur + ">") { cur := cur + "<" }
+          else if( comm < cur + "[") { cur := cur + ">" }
+          else if( comm < cur + "]") { cur := cur + "["; iff := iff + 1 }
+          else { cur := cur + "]"; ib := ib + 1 }
+        }
+      }
+    }
+    else { 
+      cur := cur + "]";
+      ib := ib + 1;
+      if( cbyte != 0 ) {
+        c := 0;
+        snr := "";
+        while ( c < ib ) {
+          match := true;
+          nr  := 0;
+          while ( match ) {
+            if( inest < snr + "0") { match := false }
+            else if( inest < snr + "1") { nr := (nr * 10); snr := snr + "0" }
+            else if( inest < snr + "2") { nr := (nr * 10) + 1; snr := snr + "1" }
+            else if( inest < snr + "3") { nr := (nr * 10) + 2; snr := snr + "2" }
+            else if( inest < snr + "4") { nr := (nr * 10) + 3; snr := snr + "3" }
+            else if( inest < snr + "5") { nr := (nr * 10) + 4; snr := snr + "4" }
+            else if( inest < snr + "6") { nr := (nr * 10) + 5; snr := snr + "5" }
+            else if( inest < snr + "7") { nr := (nr * 10) + 6; snr := snr + "6" }
+            else if( inest < snr + "8") { nr := (nr * 10) + 7; snr := snr + "7" }
+            else if( inest < snr + "9") { nr := (nr * 10) + 8; snr := snr + "8" }
+            else { nr := (nr * 10) + 9; snr := snr + "9" }
+          };
+          snr := snr + " ";
+          c := c + 1
+        };
+
+        c := 0;
+        snr := "";
+        ttt := nr;
+        while ( c < ttt  ) {
+          match := true;
+          nr  := 0;
+          while ( match ) {
+            if( jb < snr + "0") { match := false }
+            else if( jb < snr + "1") { nr := (nr * 10); snr := snr + "0" }
+            else if( jb < snr + "2") { nr := (nr * 10) + 1; snr := snr + "1" }
+            else if( jb < snr + "3") { nr := (nr * 10) + 2; snr := snr + "2" }
+            else if( jb < snr + "4") { nr := (nr * 10) + 3; snr := snr + "3" }
+            else if( jb < snr + "5") { nr := (nr * 10) + 4; snr := snr + "4" }
+            else if( jb < snr + "6") { nr := (nr * 10) + 5; snr := snr + "5" }
+            else if( jb < snr + "7") { nr := (nr * 10) + 6; snr := snr + "6" }
+            else if( jb < snr + "8") { nr := (nr * 10) + 7; snr := snr + "7" }
+            else if( jb < snr + "9") { nr := (nr * 10) + 8; snr := snr + "8" }
+            else { nr := (nr * 10) + 9; snr := snr + "9" }
+          };
+          snr := snr + " ";
+          c := c + 1
+        };
+       << output "ppppppppppppppp";
+        output iff;
+        output ttt;
+        output nr;
+        output jf;
+        output jb; >>
+        i := 0;
+        cur := "";
+        iff := 0;
+        ib := 0;
+        while ( i < nr ) {
+          i := i+1;
+          if( comm < cur + "+") {cont := false; match := false; output "--- WTF, WTF, WTF 2---"}
+          else if( comm < cur + ",") { cur := cur + "+" }
+          else if( comm < cur + "-") { cur := cur + "," }
+          else if( comm < cur + ".") { cur := cur + "-" }
+          else if( comm < cur + "<") { cur := cur + "." }
+          else if( comm < cur + ">") { cur := cur + "<" }
+          else if( comm < cur + "[") { cur := cur + ">" }
+          else if( comm < cur + "]") { cur := cur + "["; iff := iff + 1 }
+          else { cur := cur + "]"; ib := ib + 1 }
+        }
+      }
+    }
+  }
